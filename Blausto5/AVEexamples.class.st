@@ -9,6 +9,48 @@ Class {
 }
 
 { #category : 'example' }
+AVEexamples >> catJumpOnSpaceBar [
+
+	<script: 'self new catJumpOnSpaceBar'>
+	| y velY jumping gravity jumpForce groundY player space dsp street|
+	y := 300.
+velY := 0.
+jumping := false.
+gravity := 0.5.
+jumpForce := -16.
+groundY := 400.
+
+"DSP"
+dsp :=( (TpSampler new pathToFile: '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/miaoJump.wav') => FreeverbMono new ) stereo asDsp.
+dsp init . dsp start.
+
+
+street := B5Image new fromFilePath: '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/backgroundStreet.png'; position: 0@250.
+
+player := B5Image new fromFilePath:  '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/ChuckCat.png'; extent: (200)@(200) ; position: 100 @400.
+space := B5Space new.
+space addChild: street.
+space addChild: player.
+
+player onKeyDown: [ :key |	
+    (key name = #SPACE and: [ jumping not ])
+        ifTrue: [ dsp playNote: 58  prefix: 'tpSampler'  dur: 0.2.
+            velY := jumpForce.
+            jumping := true ] ].
+
+space drawAnimation: [
+    velY := velY + gravity.
+    y := y + velY.
+    y >= groundY ifTrue: [
+        y := groundY.
+        velY := 0.
+        jumping := false ].
+    player position:  70  @ y ].
+
+space show.
+]
+
+{ #category : 'example' }
 AVEexamples >> catMiaoReverb [
 
 	<script: 'self new catMiaoReverb'>
