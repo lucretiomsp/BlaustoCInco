@@ -12,47 +12,60 @@ Class {
 AVEexamples >> catJumpOnSpaceBar [
 
 	<script: 'self new catJumpOnSpaceBar'>
-	| y velY jumping gravity jumpForce groundY player space dsp street plant |
+	| y velY jumping gravity jumpForce groundY player space dsp street plant skyLine |
 	y := 350.
-velY := 0.
-jumping := false.
-gravity := 0.5.
-jumpForce := -16.
-groundY := 350.
+	velY := 0.
+	jumping := false.
+	gravity := 0.5.
+	jumpForce := -16.
+	groundY := 350.
 
-"DSP"
+	"DSP"
 
-dsp :=( (TpSampler new pathToFile: '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/miaoJump.wav') => FreeverbMono new ) stereo asDsp.
-dsp init . dsp start.
+	dsp := ((TpSampler new pathToFile:
+		         '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/miaoJump.wav')
+	        => FreeverbMono new) stereo asDsp.
+	dsp init.
+	dsp start.
+skyLine := B5Image new fromFilePath: '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/clouds.png' ;
+position: 0@(-300).
+	street := B5Image new
+		          fromFilePath:
+			          '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/backgroundStreet.png';
+		          position: 0 @ -140.
 
-street := B5Image new fromFilePath: '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/backgroundStreet.png';
-position: 0@(-140).
+	plant := B5Image new
+		         fromFilePath:
+			         '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/plant1_small.png';
+		         position: 450 @ 350.
+	player := B5Image new
+		          fromFilePath:
+			          '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/ChuckCatSmall.png';
+		          position: 10 @ 300.
+	space := B5Space new.
+	space addChild: skyLine.
+	space addChild: street.
+	space addChild: player.
+	space addChild: plant.
+	
 
-plant := B5Image new fromFilePath: '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/plant1_small.png'; position: 450@350.
-player := B5Image new fromFilePath:  '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/ChuckCatSmall.png'; position: 10 @300.
-space := B5Space new.
-space addChild: street.
-space addChild: player.
-space addChild: plant.
+	player onKeyDown: [ :key |
+			(key name = #SPACE and: [ jumping not ]) ifTrue: [
+					dsp playNote: 50 prefix: 'tpSampler' dur: 0.2.
+					velY := jumpForce.
+					jumping := true ] ].
 
-player onKeyDown: [ :key |	
-    (key name = #SPACE and: [ jumping not ])
-        ifTrue: [ dsp playNote: 50  prefix: 'tpSampler'  dur: 0.2.
-            velY := jumpForce.
-            jumping := true ] ].
-
-space drawAnimation: [
-    velY := velY + gravity.
-    y := y + velY.
-    y >= groundY ifTrue: [
-        y := groundY.
-        velY := 0.
-        jumping := false ].
-    player position:  10  @ (y - 50) ].
+	space drawAnimation: [
+			velY := velY + gravity.
+			y := y + velY.
+			y >= groundY ifTrue: [
+					y := groundY.
+					velY := 0.
+					jumping := false ].
+			player position: 10 @ (y - 50) ].
 
 
-space show.
-
+	space show
 ]
 
 { #category : 'example' }
