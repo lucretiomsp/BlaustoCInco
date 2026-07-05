@@ -12,29 +12,32 @@ Class {
 AVEexamples >> catJumpOnSpaceBar [
 
 	<script: 'self new catJumpOnSpaceBar'>
-	| y velY jumping gravity jumpForce groundY player space dsp street|
-	y := 300.
+	| y velY jumping gravity jumpForce groundY player space dsp street plant |
+	y := 350.
 velY := 0.
 jumping := false.
 gravity := 0.5.
 jumpForce := -16.
-groundY := 400.
+groundY := 350.
 
 "DSP"
+
 dsp :=( (TpSampler new pathToFile: '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/miaoJump.wav') => FreeverbMono new ) stereo asDsp.
 dsp init . dsp start.
 
+street := B5Image new fromFilePath: '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/backgroundStreet.png';
+position: 0@(-140).
 
-street := B5Image new fromFilePath: '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/backgroundStreet.png'; position: 0@250.
-
-player := B5Image new fromFilePath:  '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/ChuckCat.png'; extent: (200)@(200) ; position: 100 @400.
+plant := B5Image new fromFilePath: '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/plant1_small.png'; position: 450@350.
+player := B5Image new fromFilePath:  '/Users/domenicocipriani/MyStuff/coding/chucK/chuGL/assets/ChuckCatSmall.png'; position: 10 @300.
 space := B5Space new.
 space addChild: street.
 space addChild: player.
+space addChild: plant.
 
 player onKeyDown: [ :key |	
     (key name = #SPACE and: [ jumping not ])
-        ifTrue: [ dsp playNote: 58  prefix: 'tpSampler'  dur: 0.2.
+        ifTrue: [ dsp playNote: 50  prefix: 'tpSampler'  dur: 0.2.
             velY := jumpForce.
             jumping := true ] ].
 
@@ -45,9 +48,11 @@ space drawAnimation: [
         y := groundY.
         velY := 0.
         jumping := false ].
-    player position:  70  @ y ].
+    player position:  10  @ (y - 50) ].
+
 
 space show.
+
 ]
 
 { #category : 'example' }
