@@ -17,7 +17,7 @@ ScratchGun >> initialize [
 
 	super initialize.
 	sampler := TpSampler new
-		           label: 'scracthGun';
+		           label: 'scratchGun';
 		           pathToFile:
 			           '/Users/domenicocipriani/MyStuff/coding/pbpistolero/scratch1.wav'.
 	^ sampler stereo asDsp
