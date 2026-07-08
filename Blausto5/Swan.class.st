@@ -23,7 +23,7 @@ Swan >> decrementPositionX [
 { #category : 'positioning' }
 Swan >> decrementPositionY [
 
-	self positionY: self position x - 5
+	self positionY: self position y - 5
 ]
 
 { #category : 'positioning' }
@@ -56,26 +56,23 @@ Swan >> initializeEvents [
 	self onKeyDownNamed: #RIGHT do: [
 			self incrementPositionX.
 			mout playNote: startNote onChannel: 1.
-			startNote := startNote + 1 .
-			mout sendCC: 50 withValue: ccValue  onChannel: 1.
-			ccValue := ccValue + 5.
-			].
+			startNote := startNote + 1.
+			mout sendCC: 50 withValue: ccValue onChannel: 1.
+			ccValue := ccValue + 5 ].
 	self onKeyDownNamed: #LEFT do: [
 			self decrementPositionX.
 			mout playNote: startNote onChannel: 1.
 			startNote := startNote + 1.
 			mout playNote: startNote onChannel: 1 ].
-		self onKeyDownNamed: #DOWN do: [
+	self onKeyDownNamed: #DOWN do: [
 			self incrementPositionY.
-			mout sendCC: 40 withValue: ccValue  onChannel: 1.
-			ccValue := ccValue  - 1. ].
-		self onKeyDownNamed: #DOWN do: [
-			self decrementPositionY.
-		
-			mout sendCC: 40 withValue: ccValue  onChannel: 1.
-			ccValue := ccValue  - 1. ].
-		
-	
+			mout sendCC: 40 withValue: ccValue onChannel: 1.
+			ccValue := ccValue - 1 ].
+	self onKeyDownNamed: #UP do: [
+			self incrementPositionY.
+
+			mout sendCC: 40 withValue: ccValue onChannel: 1.
+			ccValue := ccValue + 1 ]
 ]
 
 { #category : 'initialization' }
