@@ -13,5 +13,8 @@ Class {
 Swan >> initialize [
 
 	super initialize.
-	self fromFilePath: '/Users/domenicocipriani/MyStuff/coding/pbpistolero/swan.png'; positionY: -50.
+		self
+		fromFilePath:
+			'/Users/domenicocipriani/MyStuff/coding/pbpistolero/swan.png';
+		positionY: -50
 ]
