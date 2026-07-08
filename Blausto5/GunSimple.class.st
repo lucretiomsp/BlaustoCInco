@@ -7,6 +7,9 @@ Class {
 	#superclass : 'B5Image',
 	#traits : 'BlaustoClickFocus',
 	#classTraits : 'BlaustoClickFocus classTrait',
+	#instVars : [
+		'gunFire'
+	],
 	#category : 'Blausto5-elPistolero',
 	#package : 'Blausto5',
 	#tag : 'elPistolero'
@@ -16,7 +19,17 @@ Class {
 GunSimple >> initialize [
 
 	super initialize.
-	self fromFilePath:
-		'/Users/domenicocipriani/MyStuff/coding/pbpistolero/pistola.png' ";
-		position: 0 @ 120"
+	self
+		fromFilePath:
+			'/Users/domenicocipriani/MyStuff/coding/pbpistolero/pistola.png';
+		position: 0 @ 160.
+	self initializeEvents.
+	self onClickFocus
+]
+
+{ #category : 'initialization' }
+GunSimple >> initializeEvents [
+
+	self onKeyDownNamed: #SPACE do: [ self positionY: 120 ].
+	self onKeyUpNamed: #SPACE do: [ self positionY: 160 ]
 ]

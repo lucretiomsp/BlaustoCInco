@@ -30,7 +30,9 @@ Gun >> initialize [
 ]
 
 { #category : 'initialization' }
-Gun >> initializeEvents [ 
+Gun >> initializeEvents [
 
-self onKeyDownNamed: #SPACE do: [ self removeChild: gunSimple. self addChild: gunFire ]
+	self onKeyDownNamed: #SPACE do: [
+			
+			self addChild: gunFire ]
 ]
