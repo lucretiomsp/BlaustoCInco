@@ -35,7 +35,7 @@ self positionX: self position x + 10
 { #category : 'positioning' }
 Swan >> incrementPositionY [
 
-	self positionX: self position x + 5
+	self positionY: self position y + 5
 ]
 
 { #category : 'initialization' }
@@ -58,7 +58,7 @@ Swan >> initializeEvents [
 			mout playNote: startNote onChannel: 1.
 			startNote := startNote + 1.
 			mout sendCC: 50 withValue: ccValue onChannel: 1.
-			ccValue := ccValue + 5 ].
+			ccValue := ccValue + 2 ].
 	self onKeyDownNamed: #LEFT do: [
 			self decrementPositionX.
 			mout playNote: startNote onChannel: 1.
