@@ -1,8 +1,9 @@
 "
-Water horse, 120@130 extent
+Sky 8 bit , simple.
+extent 1300@400.
 "
 Class {
-	#name : 'WaterHorse',
+	#name : 'Sky8Bit',
 	#superclass : 'B5Image',
 	#traits : 'BlaustoClickFocus',
 	#classTraits : 'BlaustoClickFocus classTrait',
@@ -12,12 +13,10 @@ Class {
 }
 
 { #category : 'initialization' }
-WaterHorse >> initialize [
+Sky8Bit >> initialize [
 
 	super initialize.
-	self
-		fromFilePath:
-			'/Users/domenicocipriani/MyStuff/coding/pbpistolero/horse.png';
-		position: 930 @ 150.
-		self onClickFocus .
+		super initialize.
+	self fromFilePath:
+		'/Users/domenicocipriani/MyStuff/coding/pbpistolero/sky8Bit.png' 
 ]

@@ -4,6 +4,8 @@ DSP with a TpSampler and a scratch sound for the Gun being dragged
 Class {
 	#name : 'ScratchGun',
 	#superclass : 'Object',
+	#traits : 'BlaustoClickFocus',
+	#classTraits : 'BlaustoClickFocus classTrait',
 	#instVars : [
 		'sampler'
 	],

@@ -4,6 +4,8 @@ The main character, el pistolero.
 Class {
 	#name : 'Pistolero',
 	#superclass : 'B5Image',
+	#traits : 'BlaustoClickFocus',
+	#classTraits : 'BlaustoClickFocus classTrait',
 	#instVars : [
 		'fm',
 		'fmNote',
@@ -52,18 +54,18 @@ Pistolero >> initialize [
 	modIndex := 20.
 	modRatio := 0.5.
 	self initializeEvents.
+	self onClickFocus .
 ]
 
 { #category : 'initialization' }
 Pistolero >> initializeDsp [
 
-	fm := Fm2Op new stereo asDsp.
+	fm := (Fm2Op new => GreyHoleDW new) asDsp.
 	fm
 		init;
 		start.
 	fm setValue: 10 parameter: 'Fm2OpModIndex'.
-	fm setValue: 1 parameter: 'Fm2OpModIndex'.
-	
+	fm setValue: 1 parameter: 'Fm2OpModRatio'
 ]
 
 { #category : 'initialization' }
@@ -71,7 +73,7 @@ Pistolero >> initializeEvents [
 
 	self onKeyDownNamed: #UP do: [
 			self incrementExtent.
-			modIndex := modIndex + 1 min: 30.
+			modIndex := modIndex + 1 min: 90.
 			fm playNote: fmNote prefix: 'fm2Op' dur: 2.
 			fm setValue: modIndex parameter: 'Fm2OpModIndex' ].
 	self onKeyDownNamed: #DOWN do: [
@@ -82,12 +84,12 @@ Pistolero >> initializeEvents [
 
 	self onKeyDownNamed: #LEFT do: [
 			self decrementPositionX.
-			modRatio := modRatio - 0.05 min: 0.1.
+			modRatio := modRatio - 0.01 max: 0.1.
 			fm playNote: fmNote prefix: 'fm2Op' dur: 2.
-			fm setValue: modIndex parameter: 'Fm2OpModRatio' ].
+			fm setValue: modRatio parameter: 'Fm2OpModRatio' ].
 	self onKeyDownNamed: #RIGHT do: [
 			self incrementPositionX.
-			modRatio := modRatio + 0.05 max: 12. 
+			modRatio := modRatio + 0.01 min: 12.
 			fm playNote: fmNote prefix: 'fm2Op' dur: 2.
-			fm setValue: modIndex parameter: 'Fm2OpModRatio' ]
+			fm setValue: modRatio parameter: 'Fm2OpModRatio' ]
 ]
