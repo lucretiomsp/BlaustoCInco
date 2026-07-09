@@ -33,13 +33,19 @@ WaterHorse >> initialize [
 { #category : 'initialization' }
 WaterHorse >> initializeDsp [
 
-	| sampler sampler2 |
-	sampler := TpSampler new label: 'horse'; pathToFile: '/Users/domenicocipriani/MyStuff/coding/pbpistolero/nitrito.wav'.
-	sampler2 :=  TpSampler new label: 'hoover'; pathToFolder: '/Users/domenicocipriani/MyStuff/coding/pbpistolero/hooverX.wav'.
-	hooverDsp := sampler stereo asDsp.
+	| sampler sampler2 effect |
+	sampler := TpSampler new
+		           label: 'horse';
+		           pathToFile:
+			           '/Users/domenicocipriani/MyStuff/coding/pbpistolero/nitrito.wav'.
+	sampler2 := TpSampler new
+		            label: 'hoover';
+		            pathToFolder:
+			            '/Users/domenicocipriani/MyStuff/coding/pbpistolero/hooverX.wav'.
+			effect := FreeverbMono new.
+	hooverDsp := ((sampler + sampler2) => effect) new stereo asDsp.
 	hooverDsp init.
-	hooverDsp  setValue: 0 parameter: 'hooverTrigger'.
-	
+	hooverDsp setValue: 0 parameter: 'hooverTrigger'
 ]
 
 { #category : 'initialization' }
