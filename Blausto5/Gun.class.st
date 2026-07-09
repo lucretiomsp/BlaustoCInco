@@ -25,8 +25,8 @@ Gun >> initialize [
 			'/Users/domenicocipriani/MyStuff/coding/pbpistolero/pistola.png';
 		position: 0 @ 160.
 	self initializeEvents.
-	self onClickFocus.
-	self initializeDsp.
+	self onDragFocus.
+	self initializeDsp
 ]
 
 { #category : 'initialization' }
