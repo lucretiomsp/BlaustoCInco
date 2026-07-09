@@ -6,6 +6,12 @@ Class {
 	#superclass : 'B5Image',
 	#traits : 'BlaustoClickFocus',
 	#classTraits : 'BlaustoClickFocus classTrait',
+	#instVars : [
+		'hooverDsp'
+	],
+	#classInstVars : [
+		'hooverDsp'
+	],
 	#category : 'Blausto5-elPistolero',
 	#package : 'Blausto5',
 	#tag : 'elPistolero'
@@ -20,4 +26,16 @@ WaterHorse >> initialize [
 			'/Users/domenicocipriani/MyStuff/coding/pbpistolero/horse.png';
 		position: 930 @ 150.
 		self onClickFocus .
+]
+
+{ #category : 'initialization' }
+WaterHorse >> initializeDsp [
+
+	| sampler sampler2 |
+	sampler := TpSampler new label: 'horse'; pathToFile: '/Users/domenicocipriani/MyStuff/coding/pbpistolero/nitrito.wav'.
+	sampler2 :=  TpSampler new label: 'hoover'; pathToFolder: '/Users/domenicocipriani/MyStuff/coding/pbpistolero/hooverX.wav'.
+	hooverDsp := sampler stereo asDsp.
+	hooverDsp init.
+	hooverDsp  setValue: 0 parameter: 'hooverTrigger'.
+	
 ]
