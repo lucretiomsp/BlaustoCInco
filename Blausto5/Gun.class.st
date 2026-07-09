@@ -25,7 +25,8 @@ Gun >> initialize [
 			'/Users/domenicocipriani/MyStuff/coding/pbpistolero/pistola.png';
 		position: 0 @ 160.
 	self initializeEvents.
-	self onClickFocus
+	self onClickFocus.
+	self initializeDsp.
 ]
 
 { #category : 'initialization' }
@@ -39,10 +40,18 @@ gunDsp start.
 { #category : 'initialization' }
 Gun >> initializeEvents [
 
-| samplesArray |
-samplesArray := 11.
-	self onKeyDownNamed: #SPACE do: [ self positionY: 120. gunDsp trig: 'gunSamplerTrigger'. 
-		gunDsp setValue: (samplesArray wrap: 11) parameter: 'gunSamplerIndex'.
-		 ].
-	self onKeyUpNamed: #SPACE do: [ self positionY: 160 ]
+	| samplesArray indx |
+	samplesArray := (0 to: 10) asArray.
+	indx := 0.
+	self onKeyDownNamed: #SPACE do: [
+			self positionY: 120.
+			gunDsp trig: 'gunLoopsTrigger'.
+			].
+	self onKeyUpNamed: #SPACE do: [ self positionY: 160  . gunDsp setValue: (samplesArray wrap: indx) parameter: 'gunLoopsIndex' .
+		indx := indx + 1].
+
+	self onMouseDragged: [ :evt |
+			gunDsp setValue: evt position x parameter: 'scratchGunFreq'.
+			gunDsp trig: 'scratchGunTrigger'.
+			self positionX: evt position x ]
 ]
