@@ -18,6 +18,12 @@ Class {
 }
 
 { #category : 'positioning' }
+WaterHorse >> decrementPositionX [
+
+	self positionX: self position x - 10
+]
+
+{ #category : 'positioning' }
 WaterHorse >> incrementPositionX [
 
 	self positionX: self position x + 10
@@ -33,7 +39,8 @@ WaterHorse >> initialize [
 		position: 930 @ 150.
 	self onClickFocus.
 	self initializeDsp.
-	self initializeEvents. 
+	self initializeEvents.
+	hooverDsp start.
 ]
 
 { #category : 'initialization' }
@@ -57,16 +64,16 @@ WaterHorse >> initializeDsp [
 { #category : 'initialization' }
 WaterHorse >> initializeEvents [
 
-| note |
-note := 62.
+	| note |
+	note := 62.
 	self onKeyDownNamed: #LEFT do: [
-		hooverDsp playNote: note prefix: 'horse'  dur: 0.6.
-		note := note -1 .
-		 ].
+			hooverDsp playNote: note prefix: 'horse' dur: 0.6.
+			self decrementPositionX .
+			note := note - 1 ].
 
 
-	self onKeyDownNamed: #RIGHT do: [
-		hooverDsp playNote: note prefix: 'hoover'  dur: 2.
-		
-		 ]
+	self
+		onKeyDownNamed: #RIGHT
+		do: [ hooverDsp playNote: note prefix: 'hoover' dur: 2 
+			. self incrementPositionX ]
 ]

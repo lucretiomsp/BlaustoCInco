@@ -48,9 +48,9 @@ Swan >> initialize [
 		fromFilePath:
 			'/Users/domenicocipriani/MyStuff/coding/pbpistolero/swan.png';
 		positionY: -50.
-	self initializeMidi.
-	self initializeEvents.
-	self onClickFocus .
+"	self initializeMidi.
+	self initializeEvents."
+	self onClickFocus
 ]
 
 { #category : 'initialization' }

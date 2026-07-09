@@ -92,9 +92,9 @@ SwanSwarm >> initializeEvents [
 { #category : 'initialization' }
 SwanSwarm >> initializeMidi [
 
-mout := MIDISender  new.
-mout openWithDevice: 3.
-startNote := 36.
-ccValue := 0.
-mout sendCC: 50 withValue:  100 onChannel: 1
+	mout := MIDISender new.
+	mout openWithDevice: 4.
+	startNote := 36.
+	ccValue := 0.
+	mout sendCC: 50 withValue: 100 onChannel: 1
 ]
