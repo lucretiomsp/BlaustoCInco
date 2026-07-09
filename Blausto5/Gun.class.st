@@ -45,7 +45,9 @@ Gun >> initializeEvents [
 	indx := 1.
 	self onKeyDownNamed: #SPACE do: [
 			self positionY: 120.
-			gunDsp trig: 'gunLoopsTrigger' ].
+			gunDsp trig: 'gunLoopsTrigger' .
+			indx == 11 ifTrue: [  self parent addChild: Sky8Bit new at: 1. (self parent children at: 2 ) zIndex:  -1]
+			].
 	self onKeyUpNamed: #SPACE do: [
 			self positionY: 160.
 			gunDsp
