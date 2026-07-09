@@ -42,13 +42,16 @@ Gun >> initializeEvents [
 
 	| samplesArray indx |
 	samplesArray := (0 to: 10) asArray.
-	indx := 0.
+	indx := 1.
 	self onKeyDownNamed: #SPACE do: [
 			self positionY: 120.
-			gunDsp trig: 'gunLoopsTrigger'.
-			].
-	self onKeyUpNamed: #SPACE do: [ self positionY: 160  . gunDsp setValue: (samplesArray wrap: indx) parameter: 'gunLoopsIndex' .
-		indx := indx + 1].
+			gunDsp trig: 'gunLoopsTrigger' ].
+	self onKeyUpNamed: #SPACE do: [
+			self positionY: 160.
+			gunDsp
+				setValue: (samplesArray wrap: indx)
+				parameter: 'gunLoopsIndex'.
+			indx := indx + 1 ].
 
 	self onMouseDragged: [ :evt |
 			gunDsp setValue: evt position x parameter: 'scratchGunFreq'.
