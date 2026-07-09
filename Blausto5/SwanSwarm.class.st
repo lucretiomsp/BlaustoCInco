@@ -56,8 +56,8 @@ SwanSwarm >> initialize [
 			             B5Image new
 				             fromFilePath:
 					             '/Users/domenicocipriani/MyStuff/coding/pbpistolero/swan.png';
-				             positionY: (positionsArray at: i);
-				             positionX: 1100 - (i * 85) ].
+				             position: (1100 - (i * 85)) @ (positionsArray at: i)
+				              ].
 	self initializeMidi.
 	self initializeEvents.
 	self onClickFocus.
@@ -83,7 +83,7 @@ SwanSwarm >> initializeEvents [
 			mout sendCC: 40 withValue: ccValue onChannel: 1.
 			ccValue := ccValue - 1 ].
 	self onKeyDownNamed: #UP do: [
-			self incrementPositionY.
+			self decrementPositionY.
 
 			mout sendCC: 40 withValue: ccValue onChannel: 1.
 			ccValue := ccValue + 1 ]
