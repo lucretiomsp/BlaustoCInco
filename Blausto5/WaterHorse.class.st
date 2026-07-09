@@ -17,6 +17,12 @@ Class {
 	#tag : 'elPistolero'
 }
 
+{ #category : 'positioning' }
+WaterHorse >> incrementPositionX [
+
+	self positionX: self position x + 10
+]
+
 { #category : 'initialization' }
 WaterHorse >> initialize [
 
@@ -40,10 +46,10 @@ WaterHorse >> initializeDsp [
 			           '/Users/domenicocipriani/MyStuff/coding/pbpistolero/nitrito.wav'.
 	sampler2 := TpSampler new
 		            label: 'hoover';
-		            pathToFolder:
+		            pathToFile:
 			            '/Users/domenicocipriani/MyStuff/coding/pbpistolero/hooverX.wav'.
-			effect := FreeverbMono new.
-	hooverDsp := ((sampler + sampler2) => effect) new stereo asDsp.
+	effect := FreeverbMono new.
+	hooverDsp := (sampler + sampler2 => effect)  stereo asDsp.
 	hooverDsp init.
 	hooverDsp setValue: 0 parameter: 'hooverTrigger'
 ]
