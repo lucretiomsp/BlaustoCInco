@@ -68,12 +68,16 @@ WaterHorse >> initializeEvents [
 	note := 62.
 	self onKeyDownNamed: #LEFT do: [
 			hooverDsp playNote: note prefix: 'horse' dur: 0.6.
-			self decrementPositionX .
+			self decrementPositionX.
 			note := note - 1 ].
 
 
-	self
-		onKeyDownNamed: #RIGHT
-		do: [ hooverDsp playNote: note prefix: 'hoover' dur: 2 
-			. self incrementPositionX ]
+	self onKeyDownNamed: #RIGHT do: [
+			hooverDsp playNote: note prefix: 'hoover' dur: 2.
+			note := 60.
+			self incrementPositionX ].
+			self onKeyDownNamed: #DOWN do: [
+			hooverDsp playNote: 63 prefix: 'hoover' dur: 3.
+			note := 60.
+			self extent: 0@0 ]
 ]
