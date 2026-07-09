@@ -25,7 +25,9 @@ WaterHorse >> initialize [
 		fromFilePath:
 			'/Users/domenicocipriani/MyStuff/coding/pbpistolero/horse.png';
 		position: 930 @ 150.
-		self onClickFocus .
+	self onClickFocus.
+	self initializeDsp.
+	self initializeEvents. 
 ]
 
 { #category : 'initialization' }
@@ -38,4 +40,21 @@ WaterHorse >> initializeDsp [
 	hooverDsp init.
 	hooverDsp  setValue: 0 parameter: 'hooverTrigger'.
 	
+]
+
+{ #category : 'initialization' }
+WaterHorse >> initializeEvents [
+
+| note |
+note := 62.
+	self onKeyDownNamed: #LEFT do: [
+		hooverDsp playNote: note prefix: 'horse'  dur: 0.6.
+		note := note -1 .
+		 ].
+
+
+	self onKeyDownNamed: #RIGHT do: [
+		hooverDsp playNote: note prefix: 'hoover'  dur: 2.
+		
+		 ]
 ]
