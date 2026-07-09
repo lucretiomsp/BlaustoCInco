@@ -17,10 +17,12 @@ Class {
 { #category : 'initialization' }
 ScratchGun >> initialize [
 
+	| sampler1 sampler2 |
 	super initialize.
-	sampler := TpSampler new
+	sampler1 := TpSampler new
 		           label: 'scratchGun';
 		           pathToFile:
 			           '/Users/domenicocipriani/MyStuff/coding/pbpistolero/scratch1.wav'.
-	^ sampler stereo asDsp
+	sampler2 := TpSampler new label: 'gunLoops'; pathToFolder: '/Users/domenicocipriani/MyStuff/samples/utrechtLoops'.
+	^( sampler1 + sampler2 )stereo asDsp
 ]

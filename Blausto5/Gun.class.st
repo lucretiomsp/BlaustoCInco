@@ -1,14 +1,15 @@
 "
-A transparent container to change between the simple gun and the firing gun
+Gun and left arm from Itch.io (free)
+180@182 extent
 "
 Class {
 	#name : 'Gun',
-	#superclass : 'B5Shape',
+	#superclass : 'B5Image',
 	#traits : 'BlaustoClickFocus',
 	#classTraits : 'BlaustoClickFocus classTrait',
 	#instVars : [
 		'gunFire',
-		'gunSimple'
+		'gunDsp'
 	],
 	#category : 'Blausto5-elPistolero',
 	#package : 'Blausto5',
@@ -19,20 +20,29 @@ Class {
 Gun >> initialize [
 
 	super initialize.
-	self background: Color transparent.
-	self extent: 180 @ 182.
-	self position: 80 @ 220.
-	gunFire := GunFire new.
-	gunSimple := GunSimple new.
-	self addChild: gunSimple.
+	self
+		fromFilePath:
+			'/Users/domenicocipriani/MyStuff/coding/pbpistolero/pistola.png';
+		position: 0 @ 160.
 	self initializeEvents.
-	self onClickFocus .
+	self onClickFocus
+]
+
+{ #category : 'initialization' }
+Gun >> initializeDsp [ 
+
+gunDsp := ScratchGun new.
+gunDsp init.
+gunDsp start.
 ]
 
 { #category : 'initialization' }
 Gun >> initializeEvents [
 
-	self onKeyDownNamed: #SPACE do: [
-			
-			self addChild: gunFire ]
+| samplesArray |
+samplesArray := 11.
+	self onKeyDownNamed: #SPACE do: [ self positionY: 120. gunDsp trig: 'gunSamplerTrigger'. 
+		gunDsp setValue: (samplesArray wrap: 11) parameter: 'gunSamplerIndex'.
+		 ].
+	self onKeyUpNamed: #SPACE do: [ self positionY: 160 ]
 ]
