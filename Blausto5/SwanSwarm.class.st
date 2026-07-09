@@ -43,16 +43,21 @@ SwanSwarm >> incrementPositionY [
 { #category : 'initialization' }
 SwanSwarm >> initialize [
 
-	| swanArray |
+	| swanArray positionsArray |
 	super initialize.
 	self mode: #corner.
+	self fill: Color transparent.
 	self extent: 1300 @ 300.
-	self position: 0 @ 150.
-	swanArray := (1 to: 6) collect: [ :i |
+	self position: -1040 @ -20.
+	positionsArray := (1 to: 12) collect: [ :i |
+		                  Random new nextIntegerBetween: -30 and: 30 ].
+
+	swanArray := (1 to: 12) collect: [ :i |
 			             B5Image new
 				             fromFilePath:
 					             '/Users/domenicocipriani/MyStuff/coding/pbpistolero/swan.png';
-				             positionX: 1000 - (i * 60) ].
+				             positionY: (positionsArray at: i);
+				             positionX: 1100 - (i * 85) ].
 	self initializeMidi.
 	self initializeEvents.
 	self onClickFocus.
